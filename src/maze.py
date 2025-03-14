@@ -14,6 +14,7 @@ class Maze:
             cell_size_y,
             win,
         ):
+        self._cells = []
         self._x1 = x1
         self._y1 = y1
         self._num_rows = num_rows
@@ -24,7 +25,6 @@ class Maze:
         self._create_cells()
 
     def _create_cells(self):
-        self._cells = []
         for col in range(self._num_cols):
             column = []
             for row in range(self._num_rows):
@@ -35,6 +35,8 @@ class Maze:
                 self._draw_cell(i, j)
         
     def _draw_cell(self, i, j):
+        if self._win is None:
+            return
         x_start = self._x1 + (self._cell_size_x * i)
         y_start = self._y1 + (self._cell_size_y * j)
         x_shift = x_start + self._cell_size_x
@@ -43,5 +45,7 @@ class Maze:
         self._animate()
     
     def _animate(self):
+        if self._win is None:
+            return
         self._win.redraw()
         time.sleep(0.05)
