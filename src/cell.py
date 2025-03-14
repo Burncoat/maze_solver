@@ -12,6 +12,7 @@ class Cell:
         self._y1 = None
         self._y2 = None
         self._win = win
+        self._visited = False
     
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
@@ -24,23 +25,24 @@ class Cell:
         right_wall = Line(Point(x2, y1), Point(x2, y2))
         top_wall = Line(Point(x1, y1), Point(x2, y1))
         bottom_wall = Line(Point(x1, y2), Point(x2, y2))
-        if self.has_left_wall:
-            self._win.draw_line(left_wall, "black")
         if not self.has_left_wall:
             self._win.draw_line(left_wall, "white")
-        if self.has_right_wall:
-            self._win.draw_line(right_wall, "black")
+        if self.has_left_wall:
+            self._win.draw_line(left_wall, "black")
         if not self.has_right_wall:
             self._win.draw_line(right_wall, "white")
-        if self.has_top_wall:
-            self._win.draw_line(top_wall, "black")
+        if self.has_right_wall:
+            self._win.draw_line(right_wall, "black")
         if not self.has_top_wall:
             self._win.draw_line(top_wall, "white")
-        if self.has_bottom_wall:
-            self._win.draw_line(bottom_wall, "black")
+        if self.has_top_wall:
+            self._win.draw_line(top_wall, "black")
         if not self.has_bottom_wall:
             self._win.draw_line(bottom_wall, "white")
-    
+        if self.has_bottom_wall:
+            self._win.draw_line(bottom_wall, "black")
+        
+
     def draw_move(self, to_cell, undo=False):
         half1 = abs(self._x2 - self._x1) // 2
         x_center = half1 + self._x1
